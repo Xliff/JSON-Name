@@ -46,9 +46,18 @@ module JSON::Name:ver<0.0.6>:auth<github:jonathanstowe> {
         has Str $.json-name is rw;
     }
 
+    role AliasedAttribute does JSON::OptIn::OptedInAttribute {
+        has Str $.alias-name is rw;
+    }
+
     multi sub trait_mod:<is>(Attribute $a, Str :$json-name!) is export(:DEFAULT){
         $a does NamedAttribute;
         $a.json-name = $json-name;
+    }
+
+    multi sub trait_mod:<is>(Attribute $a, Str :$json-alias-name!) is export(:DEFAULT){
+        $a does AliasedAttribute;
+        $a.alias-name = $json-alias-name;
     }
 
 }
